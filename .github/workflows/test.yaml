@@ -22,8 +22,9 @@ jobs:
     - name: Install package
       run: |
         python -m pip install --upgrade pip
-        pip install uv
-        uv pip install --system .[test]
+        #pip install uv
+        #uv pip install --system .[test]
+        pip install .[test]
     - name: Run unit tests
       run: |
         pytest -v --capture=tee-sys
