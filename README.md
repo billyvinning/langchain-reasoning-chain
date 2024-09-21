@@ -53,6 +53,11 @@ from IPython.display import Image, display
 display(Image(reasoning_chain.get_graph(xray=True).draw_mermaid_png()))
 ```
 
+<h1 align="center">
+    <picture>
+        <img width=250 alt="Reasoning agent workflow." src=".github/graph.png">
+    </picture>
+</h1>
 
 The newly initialised reasoning chain may be used in the following way:
 
