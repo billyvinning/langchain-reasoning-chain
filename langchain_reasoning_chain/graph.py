@@ -1,5 +1,5 @@
 import operator
-from enum import StrEnum
+from enum import Enum
 from typing import Annotated, Optional
 
 from json_repair import repair_json
@@ -43,6 +43,10 @@ class ChainOfThoughtModel(BaseModel):
             ),
         ],
     )
+
+
+class StrEnum(str, Enum):
+    pass
 
 
 class NextAction(StrEnum):
