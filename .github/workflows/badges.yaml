@@ -1,0 +1,38 @@
+name: Update Badges
+on:
+  push:
+    branches: [master, dev]
+
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install uv
+        uv pip install --system .[test]
+        uv pip install --system coverage==7.4.4 pytest-cov==5.0.0 coverage-badge==1.1.1 interrogate==1.7.0
+    - name: Run unit tests
+      run: |
+        coverage run -m pytest -v -s
+    - name: Generate coverage report
+      run: |
+        coverage report -m
+    - name: Generate coverage badge
+      run: |
+        coverage-badge -f -o .github/coverage-badge.svg
+    - name: Make docstring report and badge
+      continue-on-error: true
+      run: |
+        interrogate -c ./pyproject.toml
+    - name: Commit badges
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: '[update-badges] auto-update test and docstring coverage badges'
