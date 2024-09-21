@@ -24,6 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         #pip install uv
         #uv pip install --system .[test]
+        ls
         pip install .[test]
     - name: Run unit tests
       run: |
