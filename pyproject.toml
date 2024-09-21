@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools==70.3.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "langchain_reasoning_chain"
+version = "0.0.1"
+authors = [
+  {name = "William G.S. Vinning"}
+]
+dynamic = ["readme"]
+dependencies = [
+  "langchain-core==0.3.5",
+  "pydantic==2.9.2",
+  "pydantic_core==2.23.4",
+  "json_repair==0.29.2",
+  "langgraph==0.2.23"
+]
+
+[project.optional-dependencies]
+test = ["pytest==8.2.0"]
+dev = ["langchain_reasoning_chain[test]", "pre-commit==3.7.0"]
+
+[tool.setuptools.dynamic]
+readme = {file = "README.md"}
+
+[tool.ruff.lint]
+ignore = [
+  "PLR0913",
+  "FA102",
+  "D",
+  "ANN",
+  "S",
+  "FA",
+  "SLF001",
+  "PLR0915",
+  "PD901",
+  "T201",
+  "C901",
+  "PERF203",
+  "B017",
+  "PT011",
+  "ERA001",
+  "PLR0912"
+]
+select = ["ALL"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"langchain_reasoning_chain/tests/*" = ["D"]
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+pretty = true
+warn_unused_configs = true
+# disallow_any_generics = true
+# disallow_subclassing_any = true
+# disallow_untyped_calls = true
+# disallow_untyped_defs = true
+# disallow_incomplete_defs = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = []
+ignore_missing_imports = true
+disallow_untyped_defs = false
+
+[tool.interrogate]
+ignore-overloaded-functions = true
+fail-under = 90
+exclude = ["setup.py", "docs", "build", "langchain_reasoning_chain/tests", "langchain_reasoning_chain/cli"]
+verbose = 2
+color = true
+generate-badge = ".github/interrogate-badge.svg"
+badge-format = "svg"
+badge-style = "flat"
+
+[tool.coverage.report]
+omit = ["langchain_reasoning_chain/tests/**", "langchain_reasoning_chain/cli/**"]
+exclude_lines = [
+  "pragma: not covered",
+  "@overload",
+  "class .*\\bProtocol\\):"
+]
