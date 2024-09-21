@@ -45,6 +45,15 @@ The function `create_reasoning_chain_agent` has three optional arguments:
 - `system_prompt`: The system prompt; though the default (found in `graph.py`) should be fine.
 
 
+The agent's workflow can be visualised in Jupyter by executing the following:
+
+```python
+from IPython.display import Image, display
+
+display(Image(reasoning_chain.get_graph(xray=True).draw_mermaid_png()))
+```
+
+
 The newly initialised reasoning chain may be used in the following way:
 
 ```python
